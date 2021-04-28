@@ -83,6 +83,7 @@ if (isset($_POST['pass_update']) and isset($_POST['enter_password']) and isset($
             $stmt->execute();
             // $user = $stmt->fetchAll();
             echo 'password updated';
+            unset($_SESSION['email_reset']);
             header("Location: login.php");
         } catch (PDOException $e) {
             echo $e->getMessage();
