@@ -9,7 +9,7 @@
 </head>
 <body>
     <div>
-    <form action="dboperations.php" method="post">
+    <form action="../db/dboperations.php" method="post">
     <p> Enter Registered email</p>
     <p><input type="email" name="email" placeholder=" email"></p>
     <p><input type="submit" name="submit_email" placeholder="submit email"></p>

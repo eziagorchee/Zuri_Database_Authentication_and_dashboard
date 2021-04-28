@@ -18,7 +18,7 @@ VALUES (:first_name, :last_name, :email, :password)");
         $stmt->bindParam(':password', $password);
         $stmt->execute();
         echo "New user created successfully";
-        header("Location: login.php");
+        header("Location: ../authentication/login.php");
     } catch (PDOException $e) {
         if ($e->getCode() == 23000) {
             echo "Error: User already exists";
@@ -45,7 +45,7 @@ if (isset($_POST['login']) and isset($_POST['email']) and isset($_POST['password
             $_SESSION['user_id'] = $user['user_id'];
             $_SESSION['email'] = $user['email'];
             $_SESSION['first_name'] = $user['first_name'];
-            header("Location: dashboard.php");
+            header("Location: ../home/dashboard.php");
         } else {
             echo "invalid login credential";
         }
@@ -64,7 +64,7 @@ if (isset($_POST['submit_email']) and isset($_POST['email'])) {
         if (isset($user['email'])) {
             $_SESSION['email_reset'] = $user['email'];
             echo 'email ' . $email . ' exists in the database';
-            header("Location: pw_form.php");
+            header("Location: ../authentication/pw_form.php");
         } else {
             echo 'email not found';
         }
@@ -76,7 +76,7 @@ if (isset($_POST['submit_email']) and isset($_POST['email'])) {
 if (isset($_POST['pass_update']) and isset($_POST['enter_password']) and isset($_POST['confirm_password'])) {
     if ($_POST['enter_password'] == $_POST['confirm_password']) {
         try {
-            $email =$_SESSION['email_reset'];
+            $email = $_SESSION['email_reset'];
             $password = md5($_POST['enter_password']);
             $stmt = $conn->prepare("UPDATE users SET password= '$password' WHERE email= '$email' ");
             //
@@ -84,7 +84,7 @@ if (isset($_POST['pass_update']) and isset($_POST['enter_password']) and isset($
             // $user = $stmt->fetchAll();
             echo 'password updated';
             unset($_SESSION['email_reset']);
-            header("Location: login.php");
+            header("Location: ../authentication/login.php");
         } catch (PDOException $e) {
             echo $e->getMessage();
         }
@@ -92,4 +92,27 @@ if (isset($_POST['pass_update']) and isset($_POST['enter_password']) and isset($
     } else {
         echo 'Passwords do not match';
     }
+}
+// xxxxxxx Course Section  xxxxxxxxxx
+
+// Add courses
+if (isset($_POST['add_course']) and isset($_POST['course_title']) and isset($_POST['course_description'])) {
+    try {
+        $user_id = $_SESSION['user_id'];
+        $course_title = $_POST['course_title'];
+        $description = $_POST['course_description'];
+        $stmt = $conn->prepare("INSERT INTO courses (user_id,course_title,course_description) values(?,?,?)");
+        // $stmt->bindParam(':course_name', $course_name);
+        // $stmt->bindParam(':description', $description);
+        $stmt->execute([$user_id, $course_title, $description]);
+        echo "New course created successfully";
+        header("Location: ../home/dashboard.php");
+    } catch (PDOException $e) {
+        if ($e->getCode() == 23000) {
+            echo "Error: Course already exists";
+        } else {
+            echo "Error: " . $e->getMessage();
+        }
+    }
+    $conn = null;
 }

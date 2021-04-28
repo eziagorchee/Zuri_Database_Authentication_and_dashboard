@@ -9,7 +9,7 @@
 </head>
 <body>
     <div>
-    <form action="dboperations.php" method="post">
+    <form action="../db/dboperations.php" method="post">
     <p> PassWord Reset Form</p>
     <p><input type="password" name="enter_password" placeholder="enter password"></p>
     <p><input type="password" name="confirm_password" placeholder="confirm password"></p>
