@@ -116,3 +116,13 @@ if (isset($_POST['add_course']) and isset($_POST['course_title']) and isset($_PO
     }
     $conn = null;
 }
+
+//delete course...
+
+if(isset($_POST['delete_course'])){
+    $course_id=$_POST['course_id'];
+    $stmt=$conn->prepare("DELETE from courses where course_id=$course_id");
+    $stmt->execute();
+    header("Location: ../home/dashboard.php");
+}
+$conn=null;
