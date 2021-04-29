@@ -14,8 +14,8 @@
     <p><input type="textarea" name="course_description" placeholder=" Describe course"></p>
     <p><input type="submit" name="add_course" placeholder="add course"></p>
 
-    <p>View your Courses? <a href="../db/dashboard.php">View Courses</a>
-    <p>Want to make any changes? <a href="../db/update_course.php">-Update Courses Here</a>
+    <p>View your Courses? <a href="../home/dashboard.php">View Courses</a>
+    <p>Want to make any changes? <a href="../home/update_course.php">-Update Courses Here</a>
 
     </form>
 

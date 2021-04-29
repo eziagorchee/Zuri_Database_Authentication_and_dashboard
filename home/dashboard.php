@@ -16,9 +16,9 @@ if(count($courses)==0){
     echo " you have no course added";
 }
 for ($i=0; $i < count($courses); $i++) { 
-   echo $courses[$i]['course_title'].'<br>';
-   echo "<form action='../db/dboperations.php' method= 'POST'>    <p><input type='submit' name='delete_course' placeholder='delete course' value='delete'></p>
-   <p><input type='hidden' name='course_id' placeholder='delete course' value=".$courses[$i]['course_id']."></p></form>";
+   echo $courses[$i]['course_title'].'---'.$courses[$i]['course_description'].'<br>';
+   echo "<form action='../db/dboperations.php' method= 'POST'>    <p><input type='submit' name='delete_course' placeholder='delete course' value='delete'>".'  '."<input type='submit' name='edit_course' placeholder='edit course'value='Edit course'></p>
+   <p><input type='hidden' name='course_id' placeholder='delete course' value=".$courses[$i]['course_id']."></p><p><input type='hidden' name='course_title' value='".$courses[$i]['course_title']."'></p><p><input type='hidden' name='course_description'  value='" . $courses[$i]['course_description'] . "'></p></form>";
 }
 $conn=null;
 

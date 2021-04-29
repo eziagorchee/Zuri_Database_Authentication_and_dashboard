@@ -125,4 +125,24 @@ if(isset($_POST['delete_course'])){
     $stmt->execute();
     header("Location: ../home/dashboard.php");
 }
+
+//update course
+if(isset($_POST['edit_course'])){
+    $_SESSION['course_id']=$_POST['course_id'];
+    $_SESSION['course_title']=$_POST['course_title'];
+    $_SESSION['course_description']=$_POST['course_description'];
+    header("location: ../courses/update_course.php");
+}
+
+if(isset($_POST['update_course'])){
+    $course_id=$_POST['course_id'];
+    $course_title=$_POST['course_title'];
+    $course_description=$_POST['course_description'];
+    $stmt=$conn->prepare("UPDATE courses SET course_title='$course_title',course_description='$course_description' WHERE course_id='$course_id' ");
+    $stmt->execute();
+    unset($_SESSION['course_id']);
+    unset($_SESSION['course_title']);
+    unset($_SESSION['course_description']);
+    header("location: ../home/dashboard.php");
+}
 $conn=null;
