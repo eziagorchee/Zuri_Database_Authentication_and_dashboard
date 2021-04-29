@@ -2,7 +2,8 @@
 session_start();
 include("con.php");
 //Register user
-if (isset($_POST['submit']) and isset($_POST['first_name']) and isset($_POST['last_name']) and isset($_POST["email"]) and isset($_POST['password'])) {
+if (isset($_POST['submit'])) {
+    if(isset($_POST['first_name']) and isset($_POST['last_name']) and isset($_POST["email"]) and isset($_POST['password'])) {
 
     // prepare sql and bind parameters
     try {
@@ -28,10 +29,12 @@ VALUES (:first_name, :last_name, :email, :password)");
     }
     $conn = null;
 }
+}
 
 
 // //login user
-if (isset($_POST['login']) and isset($_POST['email']) and isset($_POST['password'])) {
+if (isset($_POST['login'])){
+if(isset($_POST['email']) and isset($_POST['password'])) {
     try {
         $email = $_POST['email'];
         $password = $_POST['password'];
@@ -54,8 +57,10 @@ if (isset($_POST['login']) and isset($_POST['email']) and isset($_POST['password
     }
     $conn = null;
 }
+}
 //validate email
-if (isset($_POST['submit_email']) and isset($_POST['email'])) {
+if (isset($_POST['submit_email'])){
+    if( isset($_POST['email'])) {
     try {
         $email = $_POST['email'];
         $stmt = $conn->prepare("SELECT * FROM users WHERE email = ?");
@@ -93,10 +98,14 @@ if (isset($_POST['pass_update']) and isset($_POST['enter_password']) and isset($
         echo 'Passwords do not match';
     }
 }
+}
+
+
 // xxxxxxx Course Section  xxxxxxxxxx
 
 // Add courses
-if (isset($_POST['add_course']) and isset($_POST['course_title']) and isset($_POST['course_description'])) {
+if (isset($_POST['add_course'])){
+    if(isset($_POST['course_title']) and isset($_POST['course_description'])) {
     try {
         $user_id = $_SESSION['user_id'];
         $course_title = $_POST['course_title'];
@@ -115,6 +124,7 @@ if (isset($_POST['add_course']) and isset($_POST['course_title']) and isset($_PO
         }
     }
     $conn = null;
+}
 }
 
 //delete course...
